@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rapido Scooter 3D Model — Three.js</title>
+  <style>
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial}
+    #app{height:100vh;display:flex;flex-direction:column}
+    header{height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:#0f172a;color:#fff}
+    header .brand{display:flex;align-items:center;gap:12px}
+    header .brand .logo{width:36px;height:36px;background:linear-gradient(135deg,#ff7a18,#af1cff);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700}
+    #canvas-wrap{flex:1;position:relative}
+    canvas{display:block}
+    .ui{position:absolute;right:18px;top:18px;background:rgba(255,255,255,0.9);padding:10px;border-radius:8px;backdrop-filter:blur(6px);font-size:13px}
+    .ui button{display:block;margin:6px 0;padding:6px 10px;border-radius:6px;border:0;background:#0f172a;color:#fff;cursor:pointer}
+    .credit{position:absolute;left:18px;bottom:18px;background:rgba(0,0,0,0.6);color:#fff;padding:8px 12px;border-radius:8px}
+  </style>
+</head>
+<body>
+  <div id="app">
+    <header>
+      <div class="brand">
+        <div class="logo">R</div>
+        <div>
+          <div style="font-weight:700">Rapido 3D</div>
+          <div style="font-size:12px;opacity:0.8">Interactive scooter preview</div>
+        </div>
+      </div>
+      <div style="font-size:13px;opacity:0.9">Use mouse / touch to rotate · Click wheels to toggle motion</div>
+    </header>
+
+    <div id="canvas-wrap">
+      <!-- Three.js canvas will be injected here -->
+      <div class="ui" id="ui">
+        <div><strong>Controls</strong></div>
+        <button id="colorBtn">Random Body Color</button>
+        <button id="toggleSpin">Toggle Spin</button>
+        <button id="resetCam">Reset Camera</button>
+      </div>
+      <div class="credit">Built with Three.js — Simple scooter model</div>
+    </div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'https://unpkg.com/three@0.155.0/build/three.module.js';
+    import { OrbitControls } from 'https://unpkg.com/three@0.155.0/examples/jsm/controls/OrbitControls.js';
+
+    // Scene, camera, renderer
+    const container = document.getElementById('canvas-wrap');
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0xeaf2ff);
+
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 2000);
+    camera.position.set(4, 2.2, 5);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    // Lights
+    const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 0.7);
+    hemi.position.set(0, 3, 0);
+    scene.add(hemi);
+
+    const dir = new THREE.DirectionalLight(0xffffff, 0.8);
+    dir.position.set(5, 10, 7);
+    dir.castShadow = true;
+    scene.add(dir);
+
+    // Ground
+    const groundGeo = new THREE.PlaneGeometry(50, 50);
+    const groundMat = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.9, metalness: 0.0 });
+    const ground = new THREE.Mesh(groundGeo, groundMat);
+    ground.rotation.x = -Math.PI / 2;
+    ground.position.y = -0.01;
+    scene.add(ground);
+
+    // Helper function: smooth metal-like material
+    function makePaint(color = 0xff3b30) {
+      return new THREE.MeshStandardMaterial({ color, roughness: 0.3, metalness: 0.2 });
+    }
+    function makeBlack() { return new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.6, metalness: 0.6 }); }
+    function makeRubber() { return new THREE.MeshStandardMaterial({ color: 0x0b0b0b, roughness: 0.9, metalness: 0.05 }); }
+
+    // Scooter group
+    const scooter = new THREE.Group();
+
+    // Body: a rounded box-ish seat + deck
+    const seat = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.18, 0.45), makePaint(0x0b6cff));
+    seat.position.set(0, 0.6, -0.05);
+    seat.rotation.x = 0.05;
+    scooter.add(seat);
+
+    const deck = new THREE.Mesh(new THREE.BoxGeometry(1.6, 0.08, 0.42), makePaint(0x0b6cff));
+    deck.position.set(0.05, 0.45, 0);
+    scooter.add(deck);
+
+    // Front column and handle
+    const column = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 1.05, 20), makeBlack());
+    column.position.set(-0.6, 0.9, 0);
+    column.rotation.z = 0.25;
+    scooter.add(column);
+
+    // Handlebar
+    const bar = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.06, 0.06), makeBlack());
+    bar.position.set(-1.05, 1.27, 0);
+    scooter.add(bar);
+
+    // Headlight
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.12, 16, 12), new THREE.MeshStandardMaterial({ emissive: 0xffffcc, emissiveIntensity: 0.4, color:0xffffff }));
+    head.position.set(-1.3, 1.15, 0);
+    scooter.add(head);
+
+    // Wheels (front & rear)
+    function makeWheel() {
+      const group = new THREE.Group();
+      const rim = new THREE.Mesh(new THREE.TorusGeometry(0.27, 0.05, 16, 60), makeBlack());
+      rim.rotation.x = Math.PI / 2;
+      group.add(rim);
+      const hub = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.14, 20), new THREE.MeshStandardMaterial({ color: 0x888888, metalness: 0.9, roughness: 0.2 }));
+      hub.rotation.z = Math.PI / 2;
+      group.add(hub);
+      return group;
+    }
+
+    const frontWheel = makeWheel();
+    frontWheel.position.set(-1.5, 0.25, 0);
+    frontWheel.name = 'frontWheel';
+    scooter.add(frontWheel);
+
+    const rearWheel = makeWheel();
+    rearWheel.position.set(0.9, 0.25, 0);
+    rearWheel.name = 'rearWheel';
+    scooter.add(rearWheel);
+
+    // Small tail and exhaust-ish styling
+    const tail = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.12, 0.16), makePaint(0x0b6cff));
+    tail.position.set(1.05, 0.55, 0);
+    tail.rotation.z = -0.06;
+    scooter.add(tail);
+
+    // Kickstand
+    const stand = new THREE.Mesh(new THREE.BoxGeometry(0.02, 0.45, 0.02), new THREE.MeshStandardMaterial({color:0x222222}));
+    stand.position.set(0.55, 0.18, -0.15);
+    stand.rotation.z = -0.6;
+    scooter.add(stand);
+
+    // Add scooter to scene
+    scooter.scale.set(1.1,1.1,1.1);
+    scooter.position.y = 0.02;
+    scene.add(scooter);
+
+    // Decorative panel under the deck
+    const panel = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.06, 0.36), new THREE.MeshStandardMaterial({color:0x0f172a, roughness:0.6}));
+    panel.position.set(0.25, 0.35, 0);
+    scooter.add(panel);
+
+    // Simple shadow - faux via a dark circle under scooter
+    const shadowTex = new THREE.TextureLoader().load(''); // empty -> skip texture
+    const shadow = new THREE.Mesh(new THREE.CircleGeometry(1.4, 32), new THREE.MeshBasicMaterial({color:0x000000, opacity:0.12, transparent:true}));
+    shadow.rotation.x = -Math.PI/2;
+    shadow.position.y = 0.001;
+    scene.add(shadow);
+
+    // Controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.target.set(0.1, 0.5, 0);
+
+    // Resize handling
+    window.addEventListener('resize', onWindowResize);
+    function onWindowResize() {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+    }
+
+    // Interaction: raycast clicks
+    const raycaster = new THREE.Raycaster();
+    const pointer = new THREE.Vector2();
+    let spinning = true;
+
+    function onPointer(e) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const y = -((e.clientY - rect.top) / rect.height) * 2 + 1;
+      pointer.set(x, y);
+
+      raycaster.setFromCamera(pointer, camera);
+      const intersects = raycaster.intersectObjects(scene.children, true);
+      if (intersects.length) {
+        const name = intersects[0].object.name || intersects[0].object.parent?.name || '';
+        // toggle wheel spin if clicked
+        if (name.includes('frontWheel') || name.includes('rearWheel') || intersects[0].object.parent?.name === 'frontWheel') {
+          spinning = !spinning;
+        }
+      }
+    }
+    renderer.domElement.addEventListener('pointerdown', onPointer);
+
+    // UI buttons
+    document.getElementById('colorBtn').addEventListener('click', ()=>{
+      const color = Math.floor(Math.random()*0xffffff);
+      seat.material.color.setHex(color);
+      deck.material.color.setHex(color);
+      tail.material.color.setHex(color);
+      panel.material.color.setHex(0x0f172a); // keep panel dark
+    });
+    document.getElementById('toggleSpin').addEventListener('click', ()=>{ spinning = !spinning; });
+    document.getElementById('resetCam').addEventListener('click', ()=>{ camera.position.set(4,2.2,5); controls.target.set(0.1,0.5,0); });
+
+    // Animation loop
+    const clock = new THREE.Clock();
+    function animate(){
+      const dt = clock.getDelta();
+      requestAnimationFrame(animate);
+
+      // subtle hover/breathe animation
+      const t = clock.getElapsedTime();
+      scooter.position.y = Math.sin(t * 1.2) * 0.01;
+
+      // rotate wheels when spinning
+      if (spinning) {
+        frontWheel.rotation.z += dt * -6;
+        rearWheel.rotation.z += dt * -6;
+      }
+
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Make sure canvas is high-DPI friendly when displayed inside flexible containers
+    (function observeResize() {
+      const ro = new ResizeObserver(onWindowResize);
+      ro.observe(container);
+    })();
+
+    // Touch improvements: prevent page scroll when dragging on canvas (mobile)
+    renderer.domElement.addEventListener('touchstart', (e)=>{ e.preventDefault(); }, {passive:false});
+
+  </script>
+</body>
+</html>

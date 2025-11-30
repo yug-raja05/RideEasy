@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - RideEasy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contact.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><i class="fas fa-bicycle"></i>
+                <span>RideEasy</span></a>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="bikes.html" class="nav-link">Bikes</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+            </nav>
+            <div class="header-actions">
+     
+                <button class="btn-primary book-now-btn">Book Now</button>
+            </div>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Get In Touch</h1>
+            <p>We're here to help you with all your rental needs</p>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About RideEasy</h2>
+                    <p>RideEasy is your trusted partner for convenient and affordable bike and scooter rentals. We're passionate about making urban mobility accessible to everyone, whether you're exploring the city for a day or need a reliable ride for your daily commute.</p>
+                    <p>With flexible hourly, daily, and weekly plans, plus convenient pickup locations and doorstep delivery options, we make it easy to get on the road and start your adventure.</p>
+                </div>
+                <div class="about-image">
+                    <canvas id="about-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form Section -->
+    <section class="contact-form-section">
+        <div class="container">
+            <div class="contact-wrapper">
+                <div class="contact-form-container">
+                    <h2>Send Us a Message</h2>
+                    <form class="contact-form" id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Name *</label>
+                                <input type="text" id="contact-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone *</label>
+                                <input type="tel" id="contact-phone" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Pickup Date</label>
+                                <input type="date" id="contact-pickup-date">
+                            </div>
+                            <div class="form-group">
+                                <label>Pickup Time</label>
+                                <input type="time" id="contact-pickup-time">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Drop-off Date</label>
+                            <input type="date" id="contact-drop-date">
+                        </div>
+                        <div class="form-group">
+                            <label>Drop-off Time</label>
+                            <input type="time" id="contact-drop-time">
+                        </div>
+                        <div class="form-group">
+                            <label>Message *</label>
+                            <textarea id="contact-message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary btn-large">Send Message</button>
+                    </form>
+                </div>
+                <div class="contact-info-container">
+                    <div class="contact-info-card">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <h3>Call Us</h3>
+                        <p>Speak directly with our team</p>
+                        <a href="tel:+1234567890" class="btn-primary">+1 (234) 567-890</a>
+                    </div>
+                    <div class="contact-info-card">
+                        <div class="contact-info-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>Live Chat</h3>
+                        <p>Get instant answers to your questions</p>
+                        <button class="btn-primary" onclick="openLiveChat()">Message Us</button>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What do I need to rent a bike or scooter?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You'll need a valid government-issued ID (driver's license or passport) and a credit or debit card for the security deposit. You must be 18 years or older to rent.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What is the cancellation policy?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>You can cancel your booking up to 24 hours before your scheduled pickup time for a full refund. Cancellations within 24 hours will incur a 50% cancellation fee.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>How much is the security deposit?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The security deposit varies by vehicle type, typically ranging from $50 to $200. This amount is held on your card and fully refunded upon return of the vehicle in good condition.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Do you provide helmets?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes! Safety is our priority. All rentals include a free helmet. We also provide locks and basic safety equipment at no extra charge.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>Can I extend my rental period?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Absolutely! You can extend your rental by contacting us via phone, chat, or through your account dashboard. Extensions are subject to availability.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        <span>What happens if the vehicle is damaged?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Minor wear and tear is expected, but any significant damage will be assessed and charged accordingly. We recommend checking the vehicle before departure and reporting any issues immediately.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-bicycle"></i>
+                        <span>RideEasy</span>
+                    </div>
+                    <p>Your trusted partner for bike and scooter rentals in the city.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="bikes.html">Bikes</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +1 (234) 567-890</li>
+                        <li><i class="fas fa-envelope"></i> info@rideeasy.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 City Street, Your City</li>
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 RideEasy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Live Chat Modal -->
+    <div class="modal" id="chat-modal">
+        <div class="modal-content modal-chat">
+            <span class="modal-close" onclick="closeLiveChat()">&times;</span>
+            <h2>Live Chat</h2>
+            <div class="chat-messages" id="chat-messages">
+                <div class="chat-message bot">
+                    <p>Hello! How can we help you today?</p>
+                </div>
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" placeholder="Type your message...">
+                <button class="btn-primary" onclick="sendChatMessage()">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="notification.js"></script>
+    <script src="contact.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

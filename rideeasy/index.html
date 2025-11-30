@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RideEasy - Rent Bikes & Scooters in Your City</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="home.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header / Top Bar -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><i class="fas fa-bicycle"></i>
+                <span>RideEasy</span></a>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="bikes.html" class="nav-link">Bikes</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+             
+                <button class="btn-primary book-now-btn">Book Now</button>
+            </div>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="glow-text">RideEasy</span> — Rent bikes & scooters in your city
+            </h1>
+            <p class="hero-subtitle">
+                Hourly, daily & weekly plans • Pick-up or doorstep delivery
+            </p>
+            <div class="hero-cta">
+                <button class="btn-primary btn-large" onclick="scrollToBooking()">
+                    Book a Ride
+                </button>
+                <button class="btn-secondary btn-large" onclick="window.location.href='bikes.html'">
+                    See Fleet
+                </button>
+            </div>
+        </div>
+        <div class="floating-scooter">
+            <svg class="route-line" viewBox="0 0 400 200" preserveAspectRatio="none">
+                <path d="M 50 100 Q 150 50, 250 100 T 350 100" 
+                      stroke="#00FFFF" 
+                      stroke-width="2" 
+                      fill="none" 
+                      stroke-dasharray="10,5"
+                      class="animated-route"/>
+            </svg>
+            <div class="scooter-icon">
+                <i class="fas fa-scooter"></i>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Featured Vehicles -->
+    <section class="featured-vehicles" id="featured-vehicles">
+        <div class="container">
+            <h2 class="section-title">Featured Vehicles</h2>
+            <div class="vehicles-carousel">
+                <button class="carousel-btn prev-btn" onclick="moveCarousel(-1)">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="vehicles-track" id="vehicles-track">
+                    <div class="vehicle-card" data-vehicle="1">
+                        <div class="vehicle-image">
+                            <img src="./activa.png" alt="Honda Activa 6G">
+                            <div class="vehicle-badge">Popular</div>
+                        </div>
+                        <div class="vehicle-info">
+                            <h3>Honda Activa 6G</h3>
+                            <div class="vehicle-price">
+                                <span class="price">₹180</span>
+                                <span class="period">/hour</span>
+                            </div>
+                            <ul class="vehicle-features">
+                                <li><i class="fas fa-check"></i> Reliable</li>
+                                <li><i class="fas fa-check"></i> Comfortable Ride</li>
+                                <li><i class="fas fa-check"></i> Wide Service Network</li>
+                            </ul>
+                            <button class="btn-primary reserve-btn" onclick="openBookingModal(1)">Reserve</button>
+                        </div>
+                    </div>
+                    <div class="vehicle-card" data-vehicle="3">
+                        <div class="vehicle-image">
+                            <img src="./ola.png" alt="Ola S1 Pro (EV)">
+                            <div class="vehicle-badge">Electric</div>
+                        </div>
+                        <div class="vehicle-info">
+                            <h3>Ola S1 Pro (EV)</h3>
+                            <div class="vehicle-price">
+                                <span class="price">₹250</span>
+                                <span class="period">/hour</span>
+                            </div>
+                            <ul class="vehicle-features">
+                                <li><i class="fas fa-bolt"></i> Smart Touchscreen</li>
+                                <li><i class="fas fa-bolt"></i> Fast Charging</li>
+                                <li><i class="fas fa-bolt"></i> App Connectivity</li>
+                            </ul>
+                            <button class="btn-primary reserve-btn" onclick="openBookingModal(3)">Reserve</button>
+                        </div>
+                    </div>
+                    <div class="vehicle-card" data-vehicle="5">
+                        <div class="vehicle-image">
+                            <img src="./pulasr.png" alt="Bajaj Pulsar 150">
+                            <div class="vehicle-badge">Best Value</div>
+                        </div>
+                        <div class="vehicle-info">
+                            <h3>Bajaj Pulsar 150</h3>
+                            <div class="vehicle-price">
+                                <span class="price">₹200</span>
+                                <span class="period">/hour</span>
+                            </div>
+                            <ul class="vehicle-features">
+                                <li><i class="fas fa-check"></i> Sporty Look</li>
+                                <li><i class="fas fa-check"></i> Powerful Performance</li>
+                                <li><i class="fas fa-check"></i> Great for Long Rides</li>
+                            </ul>
+                            <button class="btn-primary reserve-btn" onclick="openBookingModal(5)">Reserve</button>
+                        </div>
+                    </div>
+                    <div class="vehicle-card" data-vehicle="4">
+                        <div class="vehicle-image">
+                            <img src="./ather1.png" alt="Ather 450X (EV)">
+                            <div class="vehicle-badge">Premium</div>
+                        </div>
+                        <div class="vehicle-info">
+                            <h3>Ather 450X (EV)</h3>
+                            <div class="vehicle-price">
+                                <span class="price">₹260</span>
+                                <span class="period">/hour</span>
+                            </div>
+                            <ul class="vehicle-features">
+                                <li><i class="fas fa-bolt"></i> Performance EV</li>
+                                <li><i class="fas fa-bolt"></i> Fast Charge</li>
+                                <li><i class="fas fa-bolt"></i> Navigation Support</li>
+                            </ul>
+                            <button class="btn-primary reserve-btn" onclick="openBookingModal(4)">Reserve</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn next-btn" onclick="moveCarousel(1)">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why RideEasy -->
+    <section class="why-rideeasy">
+        <div class="container">
+            <h2 class="section-title">Why RideEasy?</h2>
+            <div class="trust-grid">
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Verified</h3>
+                    <p>All vehicles inspected and verified</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <i class="fas fa-hard-hat"></i>
+                    </div>
+                    <h3>Helmets Included</h3>
+                    <p>Safety first - helmets provided free</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <i class="fas fa-headset"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock customer assistance</p>
+                </div>
+                <div class="trust-item">
+                    <div class="trust-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Meetups</h3>
+                    <p>Flexible pickup locations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Local Map -->
+    <section class="local-map">
+        <div class="container">
+            <h2 class="section-title">Pickup Points</h2>
+            <div class="map-container">
+                <div class="map-placeholder" id="map-placeholder">
+                    <canvas id="map-canvas"></canvas>
+                    <div class="map-pins">
+                        <div class="map-pin" style="top: 30%; left: 25%;">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="pin-label">Downtown Hub</span>
+                        </div>
+                        <div class="map-pin" style="top: 60%; left: 70%;">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="pin-label">Beach Station</span>
+                        </div>
+                        <div class="map-pin" style="top: 45%; left: 50%;">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="pin-label">City Center</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-bicycle"></i>
+                        <span>RideEasy</span>
+                    </div>
+                    <p>Your trusted partner for bike and scooter rentals in the city.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="bikes.html">Bikes</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +1 (234) 567-890</li>
+                        <li><i class="fas fa-envelope"></i> info@rideeasy.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 City Street, Your City</li>
+                    </ul>
+                </div>
+            
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 RideEasy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeBookingModal()">&times;</span>
+            <h2>Book Your Ride</h2>
+            <form class="booking-form" id="booking-form">
+                <div class="form-group">
+                    <label>Vehicle</label>
+                    <input type="text" id="modal-vehicle-name" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Pickup Date</label>
+                    <input type="date" id="pickup-date" required>
+                </div>
+                <div class="form-group">
+                    <label>Pickup Time</label>
+                    <input type="time" id="pickup-time" required>
+                </div>
+                <div class="form-group">
+                    <label>Duration</label>
+                    <select id="duration" required>
+                        <option value="1">1 Hour</option>
+                        <option value="4">4 Hours</option>
+                        <option value="24">1 Day</option>
+                        <option value="168">1 Week</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Pickup Location</label>
+                    <select id="pickup-location" required>
+                        <option value="downtown">Downtown Hub</option>
+                        <option value="beach">Beach Station</option>
+                        <option value="center">City Center</option>
+                        <option value="delivery">Doorstep Delivery</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="customer-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="customer-phone" required>
+                </div>
+                <button type="submit" class="btn-primary btn-large">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="notification.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

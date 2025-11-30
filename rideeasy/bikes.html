@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Fleet - RideEasy</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="bikes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header" id="header">
+        <div class="container">
+            <div class="logo">
+               <a href="index.html"><i class="fas fa-bicycle"></i>
+                <span>RideEasy</span></a>
+            </div>
+            <nav class="nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="bikes.html" class="nav-link active">Bikes</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="header-actions">
+     
+                <button class="btn-primary book-now-btn">Book Now</button>
+            </div>
+            <button class="mobile-menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Page Hero -->
+    <section class="page-hero">
+        <div class="container">
+            <h1>Our Fleet</h1>
+            <p>Choose from our wide selection of bikes and scooters</p>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <section class="filter-section">
+        <div class="container">
+            <div class="filter-bar">
+                <div class="filter-group">
+                    <label>Category</label>
+                    <select id="filter-category" onchange="applyFilters()">
+                        <option value="all">All</option>
+                        <option value="scooter">Scooter</option>
+                        <option value="standard">Standard Bike</option>
+                        <option value="electric">Electric</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Price Range</label>
+                    <select id="filter-price" onchange="applyFilters()">
+                        <option value="all">All Prices</option>
+                        <option value="0-10">₹0 - ₹100/hr</option>
+                        <option value="10-15">₹100 - ₹150/hr</option>
+                        <option value="15-20">₹150 - ₹200/hr</option>
+                        <option value="20+">₹200+/hr</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Availability</label>
+                    <input type="date" id="filter-date" onchange="applyFilters()">
+                </div>
+                <div class="filter-group">
+                    <label>Sort By</label>
+                    <select id="filter-sort" onchange="applyFilters()">
+                        <option value="popular">Most Popular</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Name A-Z</option>
+                    </select>
+                </div>
+                <button class="btn-secondary" onclick="resetFilters()">Reset</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vehicles Grid -->
+    <section class="vehicles-grid-section">
+        <div class="container">
+            <div class="vehicles-grid" id="vehicles-grid">
+                <!-- Vehicles will be dynamically loaded -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Reserve Bar (Mobile) -->
+    <div class="quick-reserve-bar" id="quick-reserve-bar">
+        <div class="quick-reserve-content">
+            <div class="quick-reserve-info">
+                <img id="quick-reserve-image" src="" alt="">
+                <div>
+                    <h4 id="quick-reserve-name"></h4>
+                    <p id="quick-reserve-price"></p>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="openQuickReserve()">Reserve</button>
+        </div>
+    </div>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-bicycle"></i>
+                        <span>RideEasy</span>
+                    </div>
+                    <p>Your trusted partner for bike and scooter rentals in the city.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="bikes.html">Bikes</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +1 (234) 567-890</li>
+                        <li><i class="fas fa-envelope"></i> info@rideeasy.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 City Street, Your City</li>
+                    </ul>
+                </div>
+             
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 RideEasy. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Vehicle Detail Modal -->
+    <div class="modal" id="vehicle-modal">
+        <div class="modal-content modal-large">
+            <span class="modal-close" onclick="closeVehicleModal()">&times;</span>
+            <div class="vehicle-modal-content" id="vehicle-modal-content">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeBookingModal()">&times;</span>
+            <h2>Book Your Ride</h2>
+            <form class="booking-form" id="booking-form">
+                <div class="form-group">
+                    <label>Vehicle</label>
+                    <input type="text" id="modal-vehicle-name" readonly>
+                </div>
+                <div class="form-group">
+                    <label>Pickup Date</label>
+                    <input type="date" id="pickup-date" required>
+                </div>
+                <div class="form-group">
+                    <label>Pickup Time</label>
+                    <input type="time" id="pickup-time" required>
+                </div>
+                <div class="form-group">
+                    <label>Duration</label>
+                    <select id="duration" required>
+                        <option value="1">1 Hour</option>
+                        <option value="4">4 Hours</option>
+                        <option value="24">1 Day</option>
+                        <option value="168">1 Week</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Pickup Location</label>
+                    <select id="pickup-location" required>
+                        <option value="downtown">Downtown Hub</option>
+                        <option value="beach">Beach Station</option>
+                        <option value="center">City Center</option>
+                        <option value="delivery">Doorstep Delivery</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="customer-name" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="customer-phone" required>
+                </div>
+                <button type="submit" class="btn-primary btn-large">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="notification.js"></script>
+    <script src="bikes.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
+

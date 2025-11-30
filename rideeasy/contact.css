@@ -1,0 +1,366 @@
+/* ===== Contact Page Specific Styles ===== */
+
+/* ===== Page Hero ===== */
+.page-hero {
+    margin-top: 70px;
+    padding: 4rem 0;
+    text-align: center;
+    background: linear-gradient(135deg, rgba(0, 123, 255, 0.1) 0%, rgba(0, 255, 255, 0.1) 100%);
+}
+
+.page-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--highlight);
+    text-shadow: 0 0 20px var(--glow-cyan);
+}
+
+.page-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* ===== About Section ===== */
+.about-section {
+    padding: 4rem 0;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.about-text h2 {
+    color: var(--highlight);
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    text-shadow: 0 0 15px var(--glow-cyan);
+}
+
+.about-text p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
+.about-image {
+    position: relative;
+    height: 400px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid rgba(0, 123, 255, 0.3);
+}
+
+#about-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+/* ===== Contact Form Section ===== */
+.contact-form-section {
+    padding: 4rem 0;
+    background: rgba(0, 123, 255, 0.05);
+}
+
+.contact-wrapper {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 3rem;
+}
+
+.contact-form-container h2 {
+    color: var(--highlight);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 15px var(--glow-cyan);
+}
+
+.contact-info-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.contact-info-card {
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.contact-info-card:hover {
+    border-color: var(--highlight);
+    box-shadow: 0 10px 30px rgba(0, 255, 255, 0.2);
+    transform: translateY(-5px);
+}
+
+.contact-info-icon {
+    font-size: 3rem;
+    color: var(--highlight);
+    margin-bottom: 1rem;
+    text-shadow: 0 0 15px var(--glow-cyan);
+}
+
+.contact-info-card h3 {
+    color: var(--highlight);
+    margin-bottom: 0.5rem;
+}
+
+.contact-info-card p {
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+/* ===== Pickup Hours Section ===== */
+.pickup-hours-section {
+    padding: 4rem 0;
+}
+
+.pickup-hours-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.pickup-points h2,
+.opening-hours h2 {
+    color: var(--highlight);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 15px var(--glow-cyan);
+}
+
+.pickup-list {
+    margin-bottom: 2rem;
+}
+
+.pickup-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.5rem;
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.pickup-item:hover {
+    border-color: var(--highlight);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+}
+
+.pickup-item i {
+    font-size: 1.5rem;
+    color: var(--highlight);
+    text-shadow: 0 0 10px var(--glow-cyan);
+}
+
+.pickup-item h4 {
+    color: var(--highlight);
+    margin-bottom: 0.5rem;
+}
+
+.pickup-item p {
+    opacity: 0.8;
+    margin-bottom: 0.5rem;
+}
+
+.pickup-status {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.pickup-status.open {
+    background: rgba(0, 255, 0, 0.2);
+    color: #00ff00;
+    border: 1px solid #00ff00;
+}
+
+.pickup-map-mini {
+    height: 200px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 2px solid rgba(0, 123, 255, 0.3);
+}
+
+#pickup-map-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+.hours-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.hours-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.hours-item:hover {
+    border-color: var(--highlight);
+}
+
+.hours-item.highlight {
+    background: rgba(0, 255, 255, 0.1);
+    border-color: var(--highlight);
+}
+
+.hours-item .day {
+    color: var(--highlight);
+    font-weight: 600;
+}
+
+.hours-item .time {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ===== FAQ Section ===== */
+.faq-section {
+    padding: 4rem 0;
+    background: rgba(0, 123, 255, 0.05);
+}
+
+.faq-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-item {
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.faq-item.active {
+    border-color: var(--highlight);
+    box-shadow: 0 5px 15px rgba(0, 255, 255, 0.2);
+}
+
+.faq-question {
+    padding: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background: rgba(0, 123, 255, 0.2);
+}
+
+.faq-question span {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--highlight);
+}
+
+.faq-question i {
+    color: var(--highlight);
+    transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-question i {
+    transform: rotate(180deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+    max-height: 500px;
+}
+
+.faq-answer p {
+    padding: 0 1.5rem 1.5rem;
+    line-height: 1.8;
+    opacity: 0.9;
+}
+
+/* ===== Chat Modal ===== */
+.chat-messages {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(0, 123, 255, 0.05);
+    border-radius: 5px;
+}
+
+.chat-message {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    max-width: 80%;
+}
+
+.chat-message.bot {
+    background: rgba(0, 123, 255, 0.2);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+    margin-right: auto;
+}
+
+.chat-message.user {
+    background: rgba(0, 255, 255, 0.2);
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    margin-left: auto;
+}
+
+.chat-input-container {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.chat-input-container input {
+    flex: 1;
+    padding: 0.75rem;
+    background: rgba(0, 123, 255, 0.1);
+    border: 1px solid rgba(0, 123, 255, 0.3);
+    border-radius: 5px;
+    color: var(--text);
+}
+
+.chat-input-container button {
+    padding: 0.75rem 1.5rem;
+}
+
+/* ===== Contact Page Responsive Styles ===== */
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .pickup-hours-wrapper {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-hero h1 {
+        font-size: 2rem;
+    }
+}
